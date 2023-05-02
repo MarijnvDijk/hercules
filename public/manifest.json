@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Hercules",
+  "description":"A frontend for thc-hydra right in the browser",
+  "version":"0.1",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Hercules"
+  },
+  "permissions": [
+    "tabs"
+  ],
+  "icons": {
+    "16": "hercules-16.png",
+    "32": "hercules-32.png",
+    "48": "hercules-48.png",
+    "128": "hercules-128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';",
+    "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';"
+  }
+}

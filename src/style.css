@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+ }
+
+.App {
+    font-family: "Segoe UI", sans-serif;
+    background-color: rgb(250, 250, 250);
+    height: 450px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
+    gap: 20px;
+}
+
+.Header {
+    display: flex;
+    height: 16px;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+}
+
+.Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.url {
+    color: rgb(238, 255, 238);
+    background-color: rgb(67, 138, 67);
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.disabled {
+    background-color: gray;
+    color: white;
+}
+
+.Form > div > input {
+    border: 1px solid gray;
+    outline: none;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.Form > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.Form > div > select {
+    width: 177px;
+}
+
+.Form > button {
+    margin-top: 10px;
+    background-color: rgb(67, 138, 67);
+    color: rgb(238, 255, 238);
+    border: none;
+    padding: 20px;
+    width: 177px;
+    font-size: 18px;
+    border-radius: 5px;;
+}
+
+.Form > button:hover {
+    background-color: rgb(76, 143, 76);
+    cursor: pointer;
+}
+
+.Form > button:disabled {
+    cursor: auto;
+    background-color: gray;
+    color: white;
+}
