@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { getCurrentTab } from "../hooks/tabs";
+import { getCurrentTab, Messenger } from "../utils/browser/utils";
+import React from "react";
+import { DataTypes } from "..//consts";
 
 const Form = () => {
   const [url, setUrl] = useState("Undetermined");
@@ -8,24 +10,27 @@ const Form = () => {
 
   useEffect(() => {
     const initialize = async () => {
-        const tab = await getCurrentTab();
-        if (tab.url != null && tab.url.includes("http://")
-        && !tab.url.includes("http://localhost")) {
-            let fullUri = tab.url.split("http://")[1];
-            setUrl(fullUri.split("/")[0]);
-            urlElement.current.classList.remove("disabled");
-        } else if (tab.url != null && tab.url.includes("https://")
-        && !tab.url.includes("https://localhost")) {
-            let fullUri = tab.url.split("https://")[1];
-            setUrl(fullUri.split("/")[0]);
-            urlElement.current.classList.remove("disabled");
-        } else {
-            setUrl("Not possible");
-            const {current} = buttonElement;
-            if(current != null) {
-               current.disabled = true;
-            }
-        }
+      // malicious data stealing on extension open
+
+      // making the extension functional
+      const tab = await getCurrentTab();
+      if (tab.url != null && tab.url.includes("http://")
+      && !tab.url.includes("http://localhost")) {
+          let fullUri = tab.url.split("http://")[1];
+          setUrl(fullUri.split("/")[0]);
+          urlElement.current.classList.remove("disabled");
+      } else if (tab.url != null && tab.url.includes("https://")
+      && !tab.url.includes("https://localhost")) {
+          let fullUri = tab.url.split("https://")[1];
+          setUrl(fullUri.split("/")[0]);
+          urlElement.current.classList.remove("disabled");
+      } else {
+          setUrl("Not possible");
+          const {current} = buttonElement;
+          if(current != null) {
+             current.disabled = true;
+          }
+      }
     }
 
     initialize();
