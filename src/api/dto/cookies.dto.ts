@@ -1,4 +1,4 @@
 class CookieDto {
-    cookies: Array<string> | undefined;
+    cookies: {name: string, value: string}[] | undefined;
     url: string | undefined;
 }

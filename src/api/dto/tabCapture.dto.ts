@@ -1,3 +1,3 @@
 class TabCaptureDto {
-    base64: string | undefined;
+    data: FormData | undefined;
 }

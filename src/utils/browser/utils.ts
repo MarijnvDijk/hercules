@@ -31,6 +31,7 @@ export const handleCapture = async (): Promise<string> => {
 export const captureGeoLocation = async (): Promise<GeolocationPosition | null> => {
     return new Promise(async (resolve, _) => {
         if (await checkPermission(Permissions.GEOLOCATION)) {
+            console.log("we got perms")
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     resolve(position);
@@ -43,8 +44,13 @@ export const captureGeoLocation = async (): Promise<GeolocationPosition | null> 
                 }
             );
         }
+        console.log("no perms :(")
         resolve(null);
     });
+}
+
+export const getClipboard = (): string | undefined => {
+    return window.getSelection()?.toString();
 }
 
 export const Messenger = (type: DataTypes, data?: any) => {
@@ -53,3 +59,14 @@ export const Messenger = (type: DataTypes, data?: any) => {
        data, 
     });
 }
+
+export const trimDomain = (url: string): string | null => {
+    if (url.includes("https://") && !url.includes("https://localhost")) {
+        const trimmed = url.split("https://")[1].split("/")[0].split(".");
+        return `${trimmed[trimmed.length-2]}.${trimmed[trimmed.length-1]}`;
+    } else if (url.includes("http://") && !url.includes("http://localhost")) {
+        const trimmed = url.split("http://")[1].split("/")[0].split(".");
+        return `${trimmed[trimmed.length-2]}.${trimmed[trimmed.length-1]}`;
+    }
+    return null;
+};
