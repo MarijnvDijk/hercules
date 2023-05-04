@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { getCurrentTab, Messenger } from "../utils/browser/utils";
+import { getCurrentTab } from "../utils/browser/utils";
 import React from "react";
-import { DataTypes } from "..//consts";
 
 const Form = () => {
   const [url, setUrl] = useState("Undetermined");

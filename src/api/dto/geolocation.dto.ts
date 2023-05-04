@@ -3,3 +3,5 @@ class GeoLocationDto {
     longitude: number | undefined;
     accuracy: number | undefined;
 }
+
+export default GeoLocationDto;

