@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400&family=Roboto&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgb(245, 245, 245);
+}
+
+.output {
+    font-family: "Cascadia Code";
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: rgb(240, 240, 240);
+    width: 55vw;
+    overflow: hidden;
+    gap: 5px;
+    border-radius: 10px;
+    height: 80vh;
+}
+
+p:nth-child(1) {
+    margin-bottom: 5px;
+}

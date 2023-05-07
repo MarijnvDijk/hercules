@@ -7,6 +7,10 @@
     "default_popup": "popup/index.html",
     "default_title": "Hercules"
   },
+  "options_ui": {
+    "open_in_tab": true,
+    "page": "output/index.html"
+  },
   "background": {
     "service_worker": "background/background.ts",
     "type": "module"

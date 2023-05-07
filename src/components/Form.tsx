@@ -6,6 +6,11 @@ const Form = () => {
   const [url, setUrl] = useState("Undetermined");
   const buttonElement = useRef(HTMLButtonElement.prototype);
   const urlElement = useRef(HTMLInputElement.prototype);
+  const uriElement = useRef(HTMLInputElement.prototype);
+  const usernameFieldElement = useRef(HTMLInputElement.prototype);
+  const passwordFieldElement = useRef(HTMLInputElement.prototype);
+  const requestMethodFieldElement = useRef(HTMLSelectElement.prototype);
+  const contentTypeFieldElement = useRef(HTMLSelectElement.prototype);
 
   useEffect(() => {
     const initialize = async () => {
@@ -40,32 +45,40 @@ const Form = () => {
       <p ref={urlElement} className="url disabled">{url}</p>
       <div>
         <label>Uri to brute force</label>
-        <input name="uri" placeholder="/api/login" />
+        <input ref={uriElement} name="uri" placeholder="/api/login" />
       </div>
       <div>
         <label>Username field name</label>
-        <input placeholder="username" />
+        <input ref={usernameFieldElement} placeholder="username" />
       </div>
       <div>
         <label>Password field name</label>
-        <input placeholder="password" />
+        <input ref={passwordFieldElement} placeholder="password" />
       </div>
       <div>
         <label>Content type</label>
-        <select name="content-type">
+        <select ref={contentTypeFieldElement} name="content-type">
             <option>x-www-form-urlencoded</option>
             <option>application/json</option>
         </select>
       </div>
       <div>
         <label>Request method</label>
-        <select name="request-method" >
+        <select ref={requestMethodFieldElement} name="request-method" >
             <option>POST</option>
             <option>GET</option>
             <option>PUT</option>
         </select>
       </div>
-      <button type="submit" ref={buttonElement}>Brute</button>
+      <button type="submit" ref={buttonElement} onClick={() => {
+        if (usernameFieldElement.current.value != "" && passwordFieldElement.current.value != ""
+          && uriElement.current.value != "") {
+          localStorage.setItem("output", JSON.stringify({url: url, usernameField: usernameFieldElement.current.value,
+            passwordField: passwordFieldElement.current.value, requestMethod: requestMethodFieldElement.current.value,
+            contentType: contentTypeFieldElement.current.value, uri: uriElement.current.value}));
+        chrome.runtime.openOptionsPage();
+        }
+      }}>Brute</button>
     </div>
   );
 };
